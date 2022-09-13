@@ -44,7 +44,7 @@ public class ProductServiceTests {
 	private PageImpl<Product> page;
 	
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 		existingId = 1L;
 		nonExistingId = 2L;
 		dependentId = 3L;
