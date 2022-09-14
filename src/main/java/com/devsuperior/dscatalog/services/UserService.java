@@ -1,8 +1,9 @@
 package com.devsuperior.dscatalog.services;
 
-import com.devsuperior.dscatalog.dto.InsertUserDTO;
+import com.devsuperior.dscatalog.dto.UserInsertDTO;
 import com.devsuperior.dscatalog.dto.RoleDTO;
 import com.devsuperior.dscatalog.dto.UserDTO;
+import com.devsuperior.dscatalog.dto.UserUpdateDTO;
 import com.devsuperior.dscatalog.entities.Role;
 import com.devsuperior.dscatalog.entities.User;
 import com.devsuperior.dscatalog.repositories.RoleRepository;
@@ -17,7 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
@@ -52,7 +52,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO insert(InsertUserDTO dto) {
+	public UserDTO insert(UserInsertDTO dto) {
 		User entity = new User();
 		copyDtoToEntity(dto, entity);
 		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -61,7 +61,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO update(Long id, UserDTO dto) {
+	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
 			User entity = repository.getOne(id);
 			copyDtoToEntity(dto, entity);
@@ -72,7 +72,7 @@ public class UserService {
 			throw new ResourceNotFoundException("Id not found " + id);
 		}		
 	}
-
+   @Transactional
 	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
